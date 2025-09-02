@@ -10,4 +10,4 @@ COPY liveService.py .
 
 EXPOSE 5000
 
-CMD [ "python", "liveSerivce.py" ]
+CMD [ "python", "liveService.py" ]

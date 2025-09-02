@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: live-service-service
+  labels:
+    app: live-service
+
+spec:
+  selector:
+  # For some bizarre reason, matchLabels isn't needed here tf
+    app: live-service 
+  ports:
+    - protocol: TCP
+      port: 8080 # expose to host
+      targetPort: 5000
+  # type: ClusterIP
+  type: NodePort

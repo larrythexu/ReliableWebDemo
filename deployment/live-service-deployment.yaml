@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-service-deployment
+  labels:
+    app: live-service
+
+spec:
+  replicas: 3
+  # Select live-service pods
+  selector:
+    matchLabels:
+      app: live-service
+  
+  template:
+    metadata:
+      labels: 
+        app: live-service
+    spec:
+      containers:
+      - name: live-service-container
+        image: live-service:latest
+        imagePullPolicy: Never # use local image
+        ports:
+        - containerPort: 5000
