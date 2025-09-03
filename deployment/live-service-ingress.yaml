@@ -1,0 +1,27 @@
+# https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: live-service-ingress
+  labels:
+    app: live-service
+  # use rewrite (replace path "/app" with / when forwarded to service)
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+# Routes domain access -> service -> deployment
+spec:
+  ingressClassName: nginx # which ingress controller to use
+  rules:
+    - host: api.liveservice.com # DUMMY HOST Domain
+      http: 
+        paths:
+          - path: /app # Accessible through api.liveservice.com/app
+            pathType: Prefix
+            backend:
+              service:
+                name: live-service-service
+                port:
+                  number: 8080
+  
+  
