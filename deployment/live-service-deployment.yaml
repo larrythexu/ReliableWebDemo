@@ -19,7 +19,22 @@ spec:
     spec:
       containers:
       - name: live-service-container
-        image: live-service:latest
+        image: live-service:0.1
         imagePullPolicy: Never # use local image
         ports:
         - containerPort: 5000
+        # Probes
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

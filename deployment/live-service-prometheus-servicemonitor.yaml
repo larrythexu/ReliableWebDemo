@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: live-service-promethus-servicemonitor
+  labels:
+    release: kube-prometheus-stack # Match the chart
+
+spec:
+  selector:
+    matchLabels:
+      app: live-service
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s
